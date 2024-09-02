@@ -56,6 +56,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int _incrementAmount = 1;
 
   void _incrementCounter() {
     setState(() {
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      _counter += _incrementAmount;
     });
   }
 
@@ -106,7 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Select an amount to add, then press add button.',
+            ),
+            const Text(
+               'The total is:'
             ),
             Text(
               '$_counter',
@@ -120,6 +124,24 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomAppBar(
+        child: SegmentedButton(
+          segments: const [
+            ButtonSegment(label: Text('-5'), value: -5),
+            ButtonSegment(label: Text('-1'), value: -1),
+            ButtonSegment(label: Text('+1'), value: 1),
+            ButtonSegment(label: Text('+5'), value: 5),
+          ],
+          selected: {_incrementAmount},
+          onSelectionChanged: (s) => setState(() {
+            // There should only ever be one value in s,
+            // but this nicely handles weird cases if they ever come up
+            for (int val in s) {
+              _incrementAmount = val;
+            }
+          }),
+        ),
+      ),
     );
   }
 }
