@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Select an amount to add, then press add button.',
+              'Select an amount to add, then press the add button.',
             ),
             const Text(
                'The total is:'
